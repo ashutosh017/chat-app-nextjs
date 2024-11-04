@@ -6,13 +6,21 @@ import jwt from 'jsonwebtoken'
 export async function signIn(username:string,password:string){
     try {
         const response = await axios.post('/api/signin', { username, password });
-        console.log(response)
+        console.log("rsponse: ",response)
+        if(response.data==='user does not exist'){
+            throw new Error(response.data);
+        }
         const token = response.data.token;
         localStorage.setItem('token',token);
       } catch (err: any) {
-        console.log(err)
+        console.log("error coming from signin function: ",err)
         return err;
       }
+}
+
+export function signOut(){
+    localStorage.removeItem('token');
+    return true;
 }
 
 

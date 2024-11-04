@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     // Verify the token using the JWT secret
     const decoded = jwt.verify(token, JWT_SECRET);
     
-    console.log("Token successfully verified:", decoded);
+    console.log("from isUserLoggedIn route, Token successfully verified:", decoded);
 
     // Return a response indicating the user is logged in
     return NextResponse.json({ message: "User is logged in", user: decoded });

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest ) {
         if(!decode){
             return Response.json({msg:"Invalid creds"},{status:404})
         }
-        const token = await jwt.sign(user.username,JWT_SECRET)
+        const token = jwt.sign(user.username,JWT_SECRET)
 
       return Response.json({msg:"user signed in successfully",token},{status:200})
     } catch (error) {
