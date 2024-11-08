@@ -2,7 +2,23 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "@/app/functions/client/functions";
+// import { signIn } from "@/app/functions/client/functions";
+import axios from "axios";
+
+export async function signIn(username: string, password: string) {
+  try {
+    const response = await axios.post("/api/signin", { username, password });
+    console.log("rsponse: ", response);
+    if (response.data === "user does not exist") {
+      throw new Error(response.data);
+    }
+    const token = response.data.token;
+    localStorage.setItem("token", token);
+  } catch (err: any) {
+    console.log("error coming from signin function: ", err);
+    return err;
+  }
+}
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -11,10 +27,11 @@ export default function SignIn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await signIn(username, password);
-      router.push('/');
-    } catch (err) {
-      console.log(err);
+      await signIn(username,password);
+      router.push("/");
+    } catch (err: any) {
+      console.log("error coming from signin function: ", err);
+      return err;
     }
   };
 
