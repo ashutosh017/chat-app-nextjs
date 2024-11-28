@@ -10,11 +10,11 @@ export default function Page() {
   const router = useRouter();
   useEffect(() => {
     (async () => {
-      const to = localStorage.getItem('from');
-      if (!to) return;
+      const username = localStorage.getItem('from');
+      if (!username) return;
 
       try {
-        const response = await axios.post('/api/fetchUniqueUsers', { username: to });
+        const response = await axios.post('/api/fetchUniqueUsers', { username: username });
         if (response.data) {
           setUsers(response.data.map((user: any) => user.fromUsername));
         }

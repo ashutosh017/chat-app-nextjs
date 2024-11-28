@@ -15,7 +15,11 @@ async function getUniqueSendersForUser(username: string) {
     console.log("finding unique users for: ",user);
   const uniqueSenders = await db.message.findMany({
     where: {
-      toId: user?.id,
+     OR:[
+        { toId: user?.id,}
+        // ,{fromId:user?.id}
+     ]
+     
     },
     select: {
     //   from: {
