@@ -3,7 +3,6 @@ import { FormEvent, useState } from "react";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import { signIn } from "../signin/page";
-// import { signIn } from '@/app/functions/client/functions';
 
 export default function page() {
   const router = useRouter();
